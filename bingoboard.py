@@ -1,3 +1,19 @@
+def parse_input(input_str):
+    lines = input_str.strip().split('\n')
+    draws = [int(x) for x in lines[0].split(',')]
+    boards = []
+    current_board = []
+    for line in lines[2:]:
+        if line == '':
+            boards.append(BingoBoard(current_board))
+            current_board = []
+        else:
+            current_board.append([int(x) for x in line.strip().split()])
+    if current_board:
+        boards.append(BingoBoard(current_board))
+    return draws, boards
+
+
 class BingoBoard:
     def __init__(self, grid):
         """
