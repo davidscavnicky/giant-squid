@@ -1,7 +1,7 @@
 import bingoboard
 
 # Solve Advent of Code Day 4: Giant Squid (Part 1)
-with open('inpute.txt', 'r') as f:
+with open('input.txt', 'r') as f:
     input_str = f.read()
 
 draws, boards = bingoboard.parse_input(input_str)
