@@ -1,9 +1,15 @@
 def parse_input(input_str):
+    """
+    Parses a string representing Bingo game input into draws and board objects.
+    
+    # This function processes the input for a Bingo game, extracting the sequence of drawn numbers
+    # and constructing BingoBoard objects for each board described in the input.
+    """
     lines = input_str.strip().split('\n')
     draws = [int(x) for x in lines[0].split(',')]
     boards = []
     current_board = []
-    for line in lines[2:]:
+    for line in lines[1:]:  # lines[1:] contains the actual Bingo boards
         if line == '':
             boards.append(BingoBoard(current_board))
             current_board = []
