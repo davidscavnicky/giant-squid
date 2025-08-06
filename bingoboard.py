@@ -1,13 +1,36 @@
 
 def run_bingo_simulation(draws, boards):
     """
-    Returns first winner only (1st part).
+    Returns first winner only (Part 1).
     """
     for number in draws:
         for board in boards:
             board.marked_numbers(number)
             if board.winning_condition():
                 return board.unmarked_sum() * number
+    return None
+
+def run_bingo_simulation_part2(draws, boards):
+    """
+    Two functions - two logics
+    Returns last winner (Part 2).
+    Find the board that would win last.
+    """
+    won_boards = set()  # Track which boards have already won
+    
+    for number in draws:
+        # Mark the number on all boards that haven't won yet
+        for i, board in enumerate(boards):
+            if i not in won_boards:  # Work on boards that haven't won yet
+                board.marked_numbers(number)
+                
+                if board.winning_condition():
+                    won_boards.add(i)
+                    
+                    # find last board that wins
+                    if len(won_boards) == len(boards):
+                        return board.unmarked_sum() * number
+    
     return None
 
 def parse_input(input_str):
@@ -36,7 +59,7 @@ class BingoBoard:
         `grid` is a list of lists containing integers.
         We also create a 5x5 boolean matrix `marked` to track marked numbers.
         """
-        self.marked = [[False]*5 for _ in range(5)]  # initially no numbers are marked
+        self.marked = [[False]*5 for _ in range(5)]  # initially no numbers are marked = false boolean
         self.grid = grid  # store the board numbers
 
     def marked_numbers(self, number):
