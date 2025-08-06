@@ -1,3 +1,15 @@
+
+def run_bingo_simulation(draws, boards):
+    """
+    Returns first winner only (1st part).
+    """
+    for number in draws:
+        for board in boards:
+            board.marked_numbers(number)
+            if board.winning_condition():
+                return board.unmarked_sum() * number
+    return None
+
 def parse_input(input_str):
     """
     # This function processes the input for a Bingo game, extracting the sequence of drawn numbers
@@ -7,7 +19,7 @@ def parse_input(input_str):
     draws = [int(x) for x in lines[0].split(',')]
     boards = []
     current_board = []
-    for line in lines[1:]:  # lines[1:] contains the actual Bingo boards
+    for line in lines[2:]:  # lines[2:] contains the actual Bingo boards
         if line == '':
             boards.append(BingoBoard(current_board))
             current_board = []
@@ -16,7 +28,6 @@ def parse_input(input_str):
     if current_board:
         boards.append(BingoBoard(current_board))
     return draws, boards
-
 
 class BingoBoard:
     def __init__(self, grid):
